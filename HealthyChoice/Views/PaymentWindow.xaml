@@ -1,0 +1,168 @@
+﻿<Window x:Class="HealthyChoice.Views.PaymentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Оплата заказа - Здоровый Выбор" Height="600" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{StaticResource BackgroundColor}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource PrimaryColor}" Height="100">
+            <TextBlock Text="💳 Оформление заказа" 
+                       FontSize="20" 
+                       FontWeight="Bold" 
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Border Style="{StaticResource CardStyle}" Margin="20" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Выберите способ оплаты:" 
+                               FontSize="14" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                        <RadioButton x:Name="rbCard" Content="💳 Банковская карта" 
+                                     GroupName="PaymentMethod" 
+                                     IsChecked="True"
+                                     Margin="10"
+                                     Checked="PaymentMethod_Changed"/>
+                        <RadioButton x:Name="rbCash" Content="💵 Наличные" 
+                                     GroupName="PaymentMethod" 
+                                     Margin="10"
+                                     Checked="PaymentMethod_Changed"/>
+                    </StackPanel>
+
+                    <Border x:Name="cardDataPanel" 
+                            Style="{StaticResource CardStyle}" 
+                            Padding="15" 
+                            Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock Text="💳 Данные карты" 
+                                       FontSize="14" 
+                                       FontWeight="Bold"
+                                       Margin="0,0,0,10"/>
+
+                            <TextBlock Text="Номер карты" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtCardNumber" 
+                                     Style="{StaticResource TextBoxStyle}"
+                                     Height="35"
+                                     MaxLength="19"
+                                     PreviewTextInput="CardNumber_PreviewTextInput"
+                                     TextChanged="CardNumber_TextChanged"/>
+
+                            <TextBlock Text="Имя держателя (как на карте)" Margin="0,10,0,5"/>
+                            <TextBox x:Name="txtCardHolder" 
+                                     Style="{StaticResource TextBoxStyle}"
+                                     Height="35"/>
+
+                            <Grid Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                    <TextBlock Text="Срок (ММ/ГГ)"/>
+                                    <TextBox x:Name="txtExpiry" 
+                                             Style="{StaticResource TextBoxStyle}"
+                                             Height="35"
+                                             MaxLength="5"
+                                             TextChanged="Expiry_TextChanged"
+                                             PreviewTextInput="Expiry_PreviewTextInput"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                    <TextBlock Text="CVV/CVC"/>
+                                    <PasswordBox x:Name="txtCVV" 
+                                                 Style="{StaticResource PasswordBoxStyle}"
+                                                 Height="35"
+                                                 MaxLength="3"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <TextBlock x:Name="txtCardHint" 
+                                       FontSize="10" 
+                                       Foreground="Gray"
+                                       Margin="0,5,0,0"
+                                       Text="Подсказка: срок действия карты в формате ММ/ГГ (например, 12/25)"/>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="📦 Информация о заказе" 
+                               FontSize="14" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+
+                    <Border Style="{StaticResource CardStyle}" Padding="10" Margin="0,0,0,20" Background="#F9F9F9">
+                        <TextBlock x:Name="txtOrderInfo" TextWrapping="Wrap" FontSize="12"/>
+                    </Border>
+
+                    <TextBlock Text="📍 Самовывоз" 
+                               FontSize="14" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Адрес пункта выдачи:" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="cmbPickupAddress" 
+                              Height="35"
+                              Margin="0,0,0,15"
+                              IsEditable="True"
+                              IsTextSearchEnabled="True">
+                        <ComboBoxItem Content="г. Москва, ул. Здоровья, д. 15"/>
+                        <ComboBoxItem Content="г. Москва, пр. Мира, д. 88, стр. 1"/>
+                        <ComboBoxItem Content="г. Москва, ул. Спортивная, д. 25"/>
+                        <ComboBoxItem Content="г. Москва, Ленинградский пр-т, д. 80"/>
+                        <ComboBoxItem Content="г. Москва, ул. Тверская, д. 12"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Время получения:" Margin="0,10,0,5"/>
+                    <DatePicker x:Name="dpPickupDate" 
+                                Height="35"
+                                Margin="0,0,0,10"
+                                SelectedDate="2024-01-01"/>
+                    <ComboBox x:Name="cbPickupTime" 
+                              Height="35"
+                              Margin="0,0,0,15"
+                              SelectedIndex="4">
+                        <ComboBoxItem Content="09:00"/>
+                        <ComboBoxItem Content="10:00"/>
+                        <ComboBoxItem Content="11:00"/>
+                        <ComboBoxItem Content="12:00"/>
+                        <ComboBoxItem Content="13:00"/>
+                        <ComboBoxItem Content="14:00"/>
+                        <ComboBoxItem Content="15:00"/>
+                        <ComboBoxItem Content="16:00"/>
+                        <ComboBoxItem Content="17:00"/>
+                        <ComboBoxItem Content="18:00"/>
+                        <ComboBoxItem Content="19:00"/>
+                        <ComboBoxItem Content="20:00"/>
+                    </ComboBox>
+
+                    <Button Content="💳 Оплатить" 
+                            Click="Pay_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="0,20,0,10"
+                            Height="45"
+                            FontSize="14"/>
+
+                    <TextBlock x:Name="txtError" 
+                               Foreground="Red" 
+                               FontSize="11"
+                               TextWrapping="Wrap"
+                               Margin="5,10,5,0"
+                               Visibility="Collapsed"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</Window>

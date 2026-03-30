@@ -1,0 +1,280 @@
+﻿<Window x:Class="HealthyChoice.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Главная - Здоровый Выбор" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BackgroundColor}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource PrimaryColor}" Padding="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <TextBlock Text="Здоровый Выбор" 
+                               FontSize="20" 
+                               FontWeight="Bold" 
+                               Foreground="White"
+                               VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtUserInfo" 
+                               FontSize="14" 
+                               Foreground="White" 
+                               VerticalAlignment="Center"
+                               Margin="20,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Button Content="⭐ Рекомендации" 
+                            Click="ShowRecommendations_Click"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="1"
+                            BorderBrush="White"
+                            Margin="5"
+                            Padding="10,5"/>
+                    <Button Content="🛒 Корзина" 
+                            Click="Cart_Click"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="1"
+                            BorderBrush="White"
+                            Margin="5"
+                            Padding="10,5"/>
+                    <Button Content="📋 Мои заказы" 
+                            Click="Orders_Click"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="1"
+                            BorderBrush="White"
+                            Margin="5"
+                            Padding="10,5"/>
+                    <Button Content="🚪 Выйти" 
+                            Click="Logout_Click"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="1"
+                            BorderBrush="White"
+                            Margin="5"
+                            Padding="10,5"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Style="{StaticResource CardStyle}" Margin="0,0,10,0" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="📁 Категории" 
+                               FontSize="18" 
+                               FontWeight="Bold" 
+                               Foreground="{StaticResource PrimaryColor}"
+                               Margin="0,0,0,10"/>
+                    <ListBox x:Name="lstCategories" 
+                             BorderThickness="0"
+                             Background="Transparent"
+                             SelectionChanged="Category_SelectionChanged"
+                             Height="300">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" 
+                                           Margin="5"
+                                           FontSize="14"
+                                           Padding="5"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <TextBlock Text="💰 Цена" 
+                               FontSize="14" 
+                               FontWeight="Bold"
+                               Margin="0,20,0,10"/>
+                    <Slider x:Name="sliderPrice" 
+                            Minimum="0" 
+                            Maximum="5000" 
+                            Value="5000"
+                            Margin="0,0,0,5"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="0 ₽" Grid.Column="0" FontSize="11"/>
+                        <TextBlock Text="5000+ ₽" Grid.Column="1" HorizontalAlignment="Right" FontSize="11"/>
+                    </Grid>
+                    <TextBlock x:Name="txtMaxPrice" 
+                               Text="Макс. цена: 5000 ₽" 
+                               FontSize="11" 
+                               Foreground="Gray"
+                               Margin="0,5,0,0"/>
+
+                    <Button Content="🔍 Поиск по цене" 
+                            Click="SearchByPrice_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="0,15,0,0"
+                            Padding="10,5"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource CardStyle}" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+                        <TextBlock x:Name="txtCategoryTitle" 
+                                   Text="Все товары" 
+                                   FontSize="18" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource PrimaryColor}"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="|" 
+                                   FontSize="18" 
+                                   Margin="10,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock x:Name="txtProductCount" 
+                                   FontSize="12" 
+                                   Foreground="Gray"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Border Grid.Row="1" 
+                            Background="#F0F0F0" 
+                            CornerRadius="5" 
+                            Padding="5" 
+                            Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtSearch" 
+                                     Style="{StaticResource TextBoxStyle}"
+                                     Height="38"
+                                     Margin="0"
+                                     TextChanged="Search_TextChanged"/>
+                            <Button Grid.Column="1" 
+                                    Content="🔍" 
+                                    Width="35" 
+                                    Height="30"
+                                    Background="{StaticResource PrimaryColor}"
+                                    Foreground="White"
+                                    BorderThickness="0"
+                                    Margin="5,0,0,0"
+                                    Click="Search_Click"/>
+                        </Grid>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="itemsProducts">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource CardStyle}" 
+                                            Width="210" 
+                                            Margin="8"
+                                            Padding="12"
+                                            Cursor="Hand"
+                                            MouseLeftButtonDown="Product_Click">
+                                        <Border.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="ℹ️ Информация о товаре" Click="ProductInfo_Click"/>
+                                                <MenuItem Header="🛒 Добавить в корзину" Click="QuickAdd_Click"/>
+                                                <Separator/>
+                                                <MenuItem Header="📊 Похожие товары" Click="SimilarProducts_Click"/>
+                                            </ContextMenu>
+                                        </Border.ContextMenu>
+                                        <StackPanel>
+                                            <TextBlock Text="🏷️" FontSize="24" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding ProductName}" 
+                                                       FontSize="14" 
+                                                       FontWeight="Bold"
+                                                       TextWrapping="Wrap"
+                                                       TextAlignment="Center"
+                                                       Margin="0,5,0,0"/>
+                                            <TextBlock Text="{Binding Description}" 
+                                                       FontSize="10" 
+                                                       Foreground="Gray"
+                                                       TextWrapping="Wrap"
+                                                       TextAlignment="Center"
+                                                       Margin="0,5,0,0"
+                                                       MaxHeight="40"/>
+                                            <Border Background="{StaticResource PrimaryColor}" 
+                                                    CornerRadius="3" 
+                                                    Padding="5"
+                                                    Margin="0,10,0,5">
+                                                <TextBlock Text="{Binding Price, StringFormat={}{0:C}}" 
+                                                           FontSize="16" 
+                                                           FontWeight="Bold" 
+                                                           Foreground="White"
+                                                           HorizontalAlignment="Center"/>
+                                            </Border>
+                                            <TextBlock FontSize="10" Foreground="Gray" TextAlignment="Center">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="В наличии: {0} шт.">
+                                                        <Binding Path="StockQuantity"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <Button Content="🛒 В корзину"
+                                                    Click="AddToCartButton_Click"
+                                                    Background="{StaticResource PrimaryColor}"
+                                                    Foreground="White"
+                                                    BorderThickness="0"
+                                                    Padding="10,5"
+                                                    Margin="0,10,0,0"
+                                                    Cursor="Hand"
+                                                    FontSize="11">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                                                        <Setter Property="Foreground" Value="White"/>
+                                                        <Setter Property="Cursor" Value="Hand"/>
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" 
+                                                                            CornerRadius="5" 
+                                                                            Padding="{TemplateBinding Padding}">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#1B5E20"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

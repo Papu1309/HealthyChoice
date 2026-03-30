@@ -1,0 +1,167 @@
+﻿<Window x:Class="HealthyChoice.Views.AddProductDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="➕ Добавление нового товара" Height="500" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{StaticResource BackgroundColor}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource PrimaryColor}" Height="100">
+            <TextBlock Text="➕ Добавление нового товара" 
+                       FontSize="18" 
+                       FontWeight="Bold" 
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Border Style="{StaticResource CardStyle}" Margin="20" Padding="20">
+                <StackPanel>
+                    <!-- Название товара -->
+                    <TextBlock Text="Название товара*:" 
+                               FontSize="13" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtProductName" 
+                             Style="{StaticResource TextBoxStyle}" 
+                             Height="40"
+                             Margin="0,0,0,15"
+                             FontSize="12"/>
+
+                    <!-- Цена -->
+                    <TextBlock Text="Цена (₽)*:" 
+                               FontSize="13" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtPrice" 
+                             Style="{StaticResource TextBoxStyle}" 
+                             Height="35"
+                             Margin="0,0,0,15"
+                             FontSize="12"
+                             PreviewTextInput="Number_PreviewTextInput"/>
+
+                    <!-- Количество -->
+                    <TextBlock Text="Количество (шт.)*:" 
+                               FontSize="13" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtStock" 
+                             Style="{StaticResource TextBoxStyle}" 
+                             Height="35"
+                             Margin="0,0,0,15"
+                             FontSize="12"
+                             PreviewTextInput="Number_PreviewTextInput"/>
+
+                    <!-- Категория -->
+                    <TextBlock Text="Категория:" 
+                               FontSize="13" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,5"/>
+                    <ComboBox x:Name="cmbCategory" 
+                              Height="35"
+                              Margin="0,0,0,15"
+                              FontSize="12"
+                              Background="White"
+                              BorderBrush="#E0E0E0"
+                              BorderThickness="1"
+                              Padding="10,5"
+                              IsEditable="True">
+                        <ComboBox.Resources>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="Padding" Value="10,5"/>
+                                <Setter Property="FontSize" Value="12"/>
+                            </Style>
+                        </ComboBox.Resources>
+                        <ComboBoxItem Content="Спортивное питание"/>
+                        <ComboBoxItem Content="Витамины"/>
+                        <ComboBoxItem Content="Минералы"/>
+                        <ComboBoxItem Content="Здоровое питание"/>
+                        <ComboBoxItem Content="Красота"/>
+                        <ComboBoxItem Content="Детское здоровье"/>
+                        <ComboBoxItem Content="Разное"/>
+                    </ComboBox>
+
+                    <!-- Описание -->
+                    <TextBlock Text="Описание:" 
+                               FontSize="13" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtDescription" 
+                             Style="{StaticResource TextBoxStyle}" 
+                             Height="100"
+                             Margin="0,0,0,15"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"/>
+
+                    <!-- Информация о полях -->
+                    <TextBlock Text="* - обязательные поля" 
+                               FontSize="10" 
+                               Foreground="Gray"
+                               Margin="0,0,0,15"/>
+
+                    <!-- Кнопки -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button Content="✅ Добавить товар" 
+                                Click="AddProduct_Click"
+                                Style="{StaticResource PrimaryButton}"
+                                Width="180"
+                                Margin="5"/>
+                        <Button Content="❌ Отмена" 
+                                Click="Cancel_Click"
+                                Background="Gray"
+                                Foreground="White"
+                                FontSize="14"
+                                FontWeight="Bold"
+                                Padding="20,10"
+                                Margin="5"
+                                Cursor="Hand"
+                                BorderThickness="0">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="Gray"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        CornerRadius="5" 
+                                                        Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#555555"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+
+                    <TextBlock x:Name="txtError" 
+                               Foreground="Red" 
+                               FontSize="11"
+                               TextWrapping="Wrap"
+                               Margin="5,10,5,0"
+                               Visibility="Collapsed"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</Window>

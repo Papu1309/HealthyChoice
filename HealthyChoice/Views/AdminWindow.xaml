@@ -1,0 +1,309 @@
+﻿<Window x:Class="HealthyChoice.Views.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Панель администратора - Здоровый Выбор" Height="750" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BackgroundColor}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource PrimaryColor}" Padding="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <TextBlock Text="Панель администратора" 
+                               FontSize="20" 
+                               FontWeight="Bold" 
+                               Foreground="White"
+                               VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtAdminInfo" 
+                               FontSize="12" 
+                               Foreground="White" 
+                               VerticalAlignment="Center"
+                               Margin="20,0,0,0"
+                               Opacity="0.9"/>
+                </StackPanel>
+
+                <Button Content="Выйти" 
+                        Grid.Column="1"
+                        Click="Logout_Click"
+                        Background="Transparent"
+                        Foreground="White"
+                        BorderThickness="1"
+                        BorderBrush="White"
+                        Margin="5"
+                        Padding="15,5"/>
+            </Grid>
+        </Border>
+
+        <TabControl Grid.Row="1" Margin="20">
+            <TabItem Header="Статистика">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <WrapPanel Grid.Row="0" Margin="0,0,0,20">
+                            <Border Style="{StaticResource CardStyle}" Width="200" Height="120" Margin="10" Padding="15">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="💰" FontSize="30" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="txtTotalRevenue" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Общая выручка" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource CardStyle}" Width="200" Height="120" Margin="10" Padding="15">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="📦" FontSize="30" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="txtTotalOrders" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Всего заказов" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource CardStyle}" Width="200" Height="120" Margin="10" Padding="15">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="👥" FontSize="30" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="txtTotalUsers" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Клиентов" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource CardStyle}" Width="200" Height="120" Margin="10" Padding="15">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="🏷️" FontSize="30" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="txtTotalProducts" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Товаров" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource CardStyle}" Width="200" Height="120" Margin="10" Padding="15">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="⭐" FontSize="30" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="txtAvgOrder" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Средний чек" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </WrapPanel>
+
+                        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="10" Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="Топ-5 популярных товаров" 
+                                           FontSize="16" 
+                                           FontWeight="Bold"
+                                           Margin="0,0,0,10"/>
+                                <DataGrid x:Name="dgTopProducts" 
+                                          AutoGenerateColumns="False"
+                                          Height="200"
+                                          CanUserAddRows="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Товар" Binding="{Binding Product}" Width="200"/>
+                                        <DataGridTextColumn Header="Продано, шт" Binding="{Binding TotalSold}" Width="100"/>
+                                        <DataGridTextColumn Header="Выручка" Binding="{Binding Revenue, StringFormat={}{0:C}}" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="2" Style="{StaticResource CardStyle}" Margin="10" Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="Динамика заказов (последние 7 дней)" 
+                                           FontSize="16" 
+                                           FontWeight="Bold"
+                                           Margin="0,0,0,10"/>
+                                <DataGrid x:Name="dgOrdersByDay" 
+                                          AutoGenerateColumns="False"
+                                          Height="200"
+                                          CanUserAddRows="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Дата" Width="120">
+                                            <DataGridTextColumn.Binding>
+                                                <Binding Path="Date" StringFormat="dd.MM.yyyy"/>
+                                            </DataGridTextColumn.Binding>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Header="Количество заказов" Binding="{Binding Count}" Width="120"/>
+                                        <DataGridTextColumn Header="Сумма" Binding="{Binding Total, StringFormat={}{0:C}}" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Пользователи">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Content="Обновить список" 
+                            Click="RefreshUsers_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Width="180"
+                            HorizontalAlignment="Left"
+                            Margin="0,0,0,10"/>
+
+                    <DataGrid x:Name="dgUsers" 
+                              Grid.Row="1"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              Margin="0,10,0,0"
+                              AlternatingRowBackground="#F9F9F9">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding UserID}" Width="50"/>
+                            <DataGridTextColumn Header="Логин" Binding="{Binding Username}" Width="100"/>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="180"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="150"/>
+                            <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="120"/>
+                            <DataGridTextColumn Header="Роль" Binding="{Binding Role}" Width="80"/>
+                            <DataGridTextColumn Header="Дата регистрации" Width="100">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="CreatedDate" StringFormat="dd.MM.yyyy"/>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Товары">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Кнопки управления -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <Button Content="➕ Добавить товар" 
+                    Click="AddProduct_Click"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="180"
+                    Margin="0,0,10,0"/>
+                        <Button Content="✏️ Редактировать" 
+                    Click="EditProduct_Click" 
+                    Style="{StaticResource PrimaryButton}" 
+                    Width="180"
+                    Margin="0,0,10,0"/>
+                        <Button Content="🗑️ Удалить" 
+                    Click="DeleteProduct_Click" 
+                    Style="{StaticResource PrimaryButton}" 
+                    Width="180" Margin="0,0,10,0"/>
+                        
+                    </StackPanel>
+
+                    <!-- Поле поиска -->
+                    <Border Grid.Row="1" 
+                Background="#F0F0F0" 
+                CornerRadius="5" 
+                Padding="5" 
+                Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtSearchProduct" 
+                         Style="{StaticResource TextBoxStyle}"
+                         Height="36"
+                         Margin="0"
+                         TextChanged="SearchProduct_TextChanged"
+                         Tag="Поиск товаров..."/>
+                            <Button Grid.Column="1" 
+                        Content="🔍" 
+                        Width="35" 
+                        Height="30"
+                        Background="{StaticResource PrimaryColor}"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Margin="5,0,0,0"
+                        Click="SearchProduct_Click"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Таблица товаров -->
+                    <DataGrid x:Name="dgProducts" 
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  SelectionChanged="Products_SelectionChanged"
+                  AlternatingRowBackground="#F9F9F9"
+                  IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ProductID}" Width="50"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding ProductName}" Width="200"/>
+                            <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="250"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0:C}}" Width="100"/>
+                            <DataGridTextColumn Header="Кол-во" Binding="{Binding StockQuantity}" Width="80"/>
+                            <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="120"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Заказы">
+                <Grid Margin="10">
+                    <DataGrid x:Name="dgOrders" 
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              Margin="0,10,0,0"
+                              AlternatingRowBackground="#F9F9F9"
+                              SelectionChanged="Orders_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding OrderID}" Width="60"/>
+                            <DataGridTextColumn Header="Пользователь" Binding="{Binding UserFullName}" Width="180"/>
+                            <DataGridTextColumn Header="Дата" Width="130">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="OrderDate" StringFormat="dd.MM.yyyy HH:mm"/>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Сумма" Binding="{Binding TotalAmount, StringFormat={}{0:C}}" Width="100"/>
+                            <DataGridTextColumn Header="Оплата" Binding="{Binding PaymentMethod}" Width="100"/>
+                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100"/>
+                            <DataGridTextColumn Header="Адрес выдачи" Binding="{Binding PickupAddress}" Width="180"/>
+                            <DataGridTextColumn Header="Время выдачи" Width="130">
+                                <DataGridTextColumn.Binding>
+                                    <Binding Path="PickupTime" StringFormat="dd.MM.yyyy HH:mm"/>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Right" 
+                                VerticalAlignment="Bottom"
+                                Margin="10">
+                        <Button Content="Детали заказа" 
+                                Click="ViewOrderDetails_Click"
+                                Style="{StaticResource PrimaryButton}"
+                                Width="150"
+                                Margin="5"/>
+                        <Button Content="Отметить выполненным" 
+                                Click="CompleteOrder_Click"
+                                Style="{StaticResource PrimaryButton}"
+                                Width="210"
+                                Margin="5"/>
+                        <Button Content="Отменить заказ" 
+                                Click="CancelOrder_Click"
+                                Style="{StaticResource PrimaryButton}"
+                                Width="150"
+                                Margin="5"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
