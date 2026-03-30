@@ -3,14 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="Views/LoginWindow.xaml">
     <Application.Resources>
-        <!-- Цветовая схема -->
         <SolidColorBrush x:Key="PrimaryColor" Color="#2E7D32"/>
         <SolidColorBrush x:Key="SecondaryColor" Color="#81C784"/>
         <SolidColorBrush x:Key="AccentColor" Color="#FFC107"/>
         <SolidColorBrush x:Key="BackgroundColor" Color="#F5F5F5"/>
         <SolidColorBrush x:Key="TextColor" Color="#212121"/>
 
-        <!-- Стиль для кнопок -->
         <Style x:Key="PrimaryButton" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
             <Setter Property="Foreground" Value="White"/>
@@ -38,7 +36,6 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Стиль для текстовых полей -->
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
             <Setter Property="Height" Value="35"/>
             <Setter Property="Margin" Value="5"/>
@@ -60,7 +57,6 @@
             </Setter>
         </Style>
 
-        <!-- Стиль для PasswordBox -->
         <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
             <Setter Property="Height" Value="35"/>
             <Setter Property="Margin" Value="5"/>
@@ -82,7 +78,6 @@
             </Setter>
         </Style>
 
-        <!-- Стиль для заголовков -->
         <Style x:Key="PageTitle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -91,7 +86,6 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
 
-        <!-- Стиль для карточек -->
         <Style x:Key="CardStyle" TargetType="Border">
             <Setter Property="Background" Value="White"/>
             <Setter Property="CornerRadius" Value="10"/>

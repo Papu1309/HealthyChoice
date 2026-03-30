@@ -25,7 +25,6 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <Border Style="{StaticResource CardStyle}" Margin="20" Padding="20">
                 <StackPanel>
-                    <!-- Информация о товаре -->
                     <Border Style="{StaticResource CardStyle}" Padding="15" Margin="0,0,0,20" Background="#F9F9F9">
                         <StackPanel>
                             <TextBlock x:Name="txtProductName" 
@@ -47,7 +46,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Выбор количества -->
                     <TextBlock Text="Количество:" 
                                FontSize="14" 
                                FontWeight="Bold"
@@ -93,7 +91,6 @@
                                 Padding="0"/>
                     </Grid>
 
-                    <!-- Итоговая сумма -->
                     <Border Style="{StaticResource CardStyle}" Padding="15" Margin="0,0,0,20" Background="#E8F5E9">
                         <StackPanel>
                             <TextBlock Text="Итого:" 
@@ -108,7 +105,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Дополнительные опции -->
                     <TextBlock Text="Дополнительно:" 
                                FontSize="14" 
                                FontWeight="Bold"
@@ -132,7 +128,6 @@
                               Checked="Insurance_Changed"
                               Unchecked="Insurance_Changed"/>
 
-                    <!-- Кнопки -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                         <Button Content="✅ Добавить в корзину" 
                                 Click="AddToCart_Click"

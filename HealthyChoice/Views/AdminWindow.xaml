@@ -186,7 +186,6 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Кнопки управления -->
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
                         <Button Content="➕ Добавить товар" 
                     Click="AddProduct_Click"
@@ -205,7 +204,6 @@
                         
                     </StackPanel>
 
-                    <!-- Поле поиска -->
                     <Border Grid.Row="1" 
                 Background="#F0F0F0" 
                 CornerRadius="5" 
@@ -234,7 +232,6 @@
                         </Grid>
                     </Border>
 
-                    <!-- Таблица товаров -->
                     <DataGrid x:Name="dgProducts" 
                   Grid.Row="2"
                   AutoGenerateColumns="False"

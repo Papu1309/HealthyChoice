@@ -358,7 +358,6 @@ namespace HealthyChoice.Views
             }
         }
 
-        // Новые функции
 
         private void ShowRecommendations_Click(object sender, RoutedEventArgs e)
         {

@@ -16,7 +16,6 @@ namespace HealthyChoice.Views
 
         private void Phone_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Разрешаем только цифры, + и -
             e.Handled = !Regex.IsMatch(e.Text, @"^[0-9+\-]+$");
         }
 
@@ -31,7 +30,6 @@ namespace HealthyChoice.Views
                 string email = txtEmail.Text.Trim();
                 string phone = txtPhone.Text.Trim();
 
-                // Валидация
                 if (string.IsNullOrEmpty(username))
                 {
                     ShowError("Введите логин");
@@ -95,7 +93,6 @@ namespace HealthyChoice.Views
                     return;
                 }
 
-                // Проверка существования пользователя
                 var existingUser = Connection.entities.Users
                     .FirstOrDefault(u => u.Username == username);
 
@@ -106,7 +103,6 @@ namespace HealthyChoice.Views
                     return;
                 }
 
-                // Проверка email
                 var existingEmail = Connection.entities.Users
                     .FirstOrDefault(u => u.Email == email);
 
@@ -117,7 +113,6 @@ namespace HealthyChoice.Views
                     return;
                 }
 
-                // Создание нового пользователя
                 var newUser = new Users
                 {
                     Username = username,
@@ -170,9 +165,7 @@ namespace HealthyChoice.Views
 
         private bool IsValidPhone(string phone)
         {
-            // Убираем все нецифровые символы для проверки
             string digits = Regex.Replace(phone, @"[^\d]", "");
-            // Проверяем длину (10-12 цифр)
             return digits.Length >= 10 && digits.Length <= 12;
         }
 

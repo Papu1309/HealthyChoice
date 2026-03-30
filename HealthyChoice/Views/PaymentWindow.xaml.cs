@@ -20,7 +20,6 @@ namespace HealthyChoice.Views
             this.cart = cart;
             this.currentUser = user;
 
-            // Инициализация даты
             if (dpPickupDate != null)
             {
                 dpPickupDate.SelectedDate = DateTime.Now.AddDays(1);
@@ -28,7 +27,6 @@ namespace HealthyChoice.Views
 
             UpdateOrderInfo();
 
-            // Убедимся что панель карты видима по умолчанию
             if (cardDataPanel != null)
             {
                 cardDataPanel.Visibility = Visibility.Visible;
@@ -65,7 +63,6 @@ namespace HealthyChoice.Views
 
         private void CardNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Разрешаем только цифры
             e.Handled = !Regex.IsMatch(e.Text, @"^\d+$");
         }
 
@@ -74,14 +71,12 @@ namespace HealthyChoice.Views
             var textBox = sender as TextBox;
             if (textBox != null)
             {
-                // Убираем все пробелы
                 string number = textBox.Text.Replace(" ", "");
                 if (number.Length > 16)
                 {
                     number = number.Substring(0, 16);
                 }
 
-                // Форматируем номер карты группами по 4 цифры
                 if (number.Length > 0)
                 {
                     string formatted = "";
@@ -94,7 +89,6 @@ namespace HealthyChoice.Views
                         formatted += number[i];
                     }
 
-                    // Обновляем текст, если он изменился
                     if (textBox.Text != formatted)
                     {
                         textBox.Text = formatted;
@@ -106,7 +100,6 @@ namespace HealthyChoice.Views
 
         private void Expiry_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Разрешаем только цифры
             e.Handled = !Regex.IsMatch(e.Text, @"^\d+$");
         }
 
@@ -115,7 +108,6 @@ namespace HealthyChoice.Views
             var textBox = sender as TextBox;
             if (textBox != null)
             {
-                // Убираем слеш
                 string text = textBox.Text.Replace("/", "");
 
                 if (text.Length > 4)
@@ -161,7 +153,6 @@ namespace HealthyChoice.Views
             if (rbCard.IsChecked != true)
                 return true;
 
-            // Проверка номера карты
             if (txtCardNumber == null || string.IsNullOrWhiteSpace(txtCardNumber.Text))
             {
                 ShowError("Введите номер карты");
@@ -177,7 +168,6 @@ namespace HealthyChoice.Views
                 return false;
             }
 
-            // Проверка имени держателя
             if (txtCardHolder == null || string.IsNullOrWhiteSpace(txtCardHolder.Text))
             {
                 ShowError("Введите имя держателя карты (как на карте)");
@@ -185,7 +175,6 @@ namespace HealthyChoice.Views
                 return false;
             }
 
-            // Проверка срока действия
             if (txtExpiry == null || string.IsNullOrWhiteSpace(txtExpiry.Text))
             {
                 ShowError("Введите срок действия карты в формате ММ/ГГ");
@@ -201,7 +190,6 @@ namespace HealthyChoice.Views
                 return false;
             }
 
-            // Проверка, что срок не истек
             string[] parts = expiry.Split('/');
             if (parts.Length == 2)
             {
@@ -216,7 +204,6 @@ namespace HealthyChoice.Views
                 }
             }
 
-            // Проверка CVV
             if (txtCVV == null || string.IsNullOrWhiteSpace(txtCVV.Password))
             {
                 ShowError("Введите CVV/CVC код (3 цифры на обороте карты)");
@@ -274,7 +261,6 @@ namespace HealthyChoice.Views
                     }
                 }
 
-                // Получаем адрес из ComboBox
                 string pickupAddress = "г. Москва, ул. Здоровья, д. 15";
                 if (cmbPickupAddress != null && cmbPickupAddress.SelectedItem != null)
                 {

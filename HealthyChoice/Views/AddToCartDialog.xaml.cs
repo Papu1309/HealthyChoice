@@ -22,7 +22,6 @@ namespace HealthyChoice.Views
         {
             InitializeComponent();
 
-            // Проверка на null
             if (product == null)
             {
                 MessageBox.Show("Ошибка: товар не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -33,7 +32,6 @@ namespace HealthyChoice.Views
 
             this.product = product;
 
-            // Заполняем информацию о товаре
             if (txtProductName != null)
                 txtProductName.Text = product.ProductName;
 
@@ -116,10 +114,8 @@ namespace HealthyChoice.Views
         {
             try
             {
-                // Проверяем, что product не null
                 if (product == null) return;
 
-                // Проверяем, что txtQuantity не null
                 if (txtQuantity == null) return;
 
                 if (int.TryParse(txtQuantity.Text, out int newQuantity))
@@ -258,7 +254,6 @@ namespace HealthyChoice.Views
         {
             try
             {
-                // Дополнительная проверка при загрузке окна
                 if (product == null)
                 {
                     MessageBox.Show("Ошибка: данные товара не загружены", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);

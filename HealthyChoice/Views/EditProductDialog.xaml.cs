@@ -16,13 +16,11 @@ namespace HealthyChoice.Views
             InitializeComponent();
             this.product = product;
 
-            // Заполняем поля текущими данными
             txtName.Text = product.ProductName;
             txtPrice.Text = product.Price.ToString();
             txtStock.Text = product.StockQuantity.ToString();
             txtDescription.Text = product.Description;
 
-            // Устанавливаем категорию
             if (!string.IsNullOrEmpty(product.Category))
             {
                 for (int i = 0; i < cmbCategory.Items.Count; i++)
@@ -51,7 +49,6 @@ namespace HealthyChoice.Views
         {
             try
             {
-                // Проверка на пустые обязательные поля
                 if (string.IsNullOrWhiteSpace(txtName.Text))
                 {
                     ShowError("Введите название товара");
@@ -73,7 +70,6 @@ namespace HealthyChoice.Views
                     return;
                 }
 
-                // Парсинг цены
                 if (!decimal.TryParse(txtPrice.Text, out decimal price))
                 {
                     ShowError("Введите корректную цену (число)");
@@ -81,7 +77,6 @@ namespace HealthyChoice.Views
                     return;
                 }
 
-                // Парсинг количества
                 if (!int.TryParse(txtStock.Text, out int stock))
                 {
                     ShowError("Введите корректное количество (целое число)");
@@ -89,7 +84,6 @@ namespace HealthyChoice.Views
                     return;
                 }
 
-                // Валидация
                 if (price <= 0)
                 {
                     ShowError("Цена должна быть больше 0");
@@ -104,7 +98,6 @@ namespace HealthyChoice.Views
                     return;
                 }
 
-                // Получаем категорию
                 string category = "Разное";
                 if (cmbCategory.SelectedItem != null)
                 {
@@ -115,7 +108,6 @@ namespace HealthyChoice.Views
                     category = cmbCategory.Text;
                 }
 
-                // Обновляем товар
                 product.ProductName = txtName.Text.Trim();
                 product.Price = price;
                 product.StockQuantity = stock;

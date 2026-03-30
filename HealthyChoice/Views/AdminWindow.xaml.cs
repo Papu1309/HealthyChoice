@@ -21,7 +21,6 @@ namespace HealthyChoice.Views
             LoadProducts();
             LoadOrders();
 
-            // Инициализация поиска товаров
             if (txtSearchProduct != null)
             {
                 txtSearchProduct.Text = "Поиск товаров...";
@@ -78,7 +77,6 @@ namespace HealthyChoice.Views
             {
                 var completedOrders = Connection.entities.Orders.Where(o => o.Status == "Completed");
 
-                // Общая выручка
                 decimal totalRevenue = 0;
                 if (completedOrders.Any())
                 {
@@ -86,19 +84,15 @@ namespace HealthyChoice.Views
                 }
                 txtTotalRevenue.Text = totalRevenue.ToString("C");
 
-                // Всего заказов
                 int totalOrders = Connection.entities.Orders.Count();
                 txtTotalOrders.Text = totalOrders.ToString();
 
-                // Всего клиентов
                 int totalUsers = Connection.entities.Users.Count(u => u.Role == "User");
                 txtTotalUsers.Text = totalUsers.ToString();
 
-                // Всего товаров
                 int totalProducts = Connection.entities.Products.Count();
                 txtTotalProducts.Text = totalProducts.ToString();
 
-                // Средний чек
                 decimal avgOrder = 0;
                 if (completedOrders.Any())
                 {
@@ -106,7 +100,6 @@ namespace HealthyChoice.Views
                 }
                 txtAvgOrder.Text = avgOrder.ToString("C");
 
-                // Топ-5 популярных товаров
                 var topProducts = Connection.entities.OrderDetails
                     .GroupBy(od => od.ProductID)
                     .Select(g => new
@@ -128,7 +121,6 @@ namespace HealthyChoice.Views
 
                 dgTopProducts.ItemsSource = topProductsList;
 
-                // Динамика заказов за последние 7 дней
                 var ordersByDay = Connection.entities.Orders
                     .Where(o => o.Status == "Completed")
                     .ToList()
@@ -314,7 +306,6 @@ namespace HealthyChoice.Views
 
             var product = dgProducts.SelectedItem as Products;
 
-            // Проверяем, есть ли заказы с этим товаром
             var hasOrders = Connection.entities.OrderDetails.Any(od => od.ProductID == product.ProductID);
 
             if (hasOrders)
@@ -354,14 +345,12 @@ namespace HealthyChoice.Views
 
         private void Products_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Можно добавить логику при выборе товара
         }
         #endregion
 
         #region Управление заказами
         private void Orders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Можно добавить логику при выборе заказа
         }
 
         private void ViewOrderDetails_Click(object sender, RoutedEventArgs e)

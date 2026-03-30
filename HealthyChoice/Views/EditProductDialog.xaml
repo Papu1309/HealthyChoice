@@ -24,7 +24,6 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <Border Style="{StaticResource CardStyle}" Margin="20" Padding="20">
                 <StackPanel>
-                    <!-- Название товара -->
                     <TextBlock Text="Название товара*:" 
                                FontSize="13" 
                                FontWeight="Bold" 
@@ -35,7 +34,6 @@
                              Margin="0,0,0,15"
                              FontSize="12"/>
 
-                    <!-- Цена -->
                     <TextBlock Text="Цена (₽)*:" 
                                FontSize="13" 
                                FontWeight="Bold" 
@@ -47,7 +45,6 @@
                              FontSize="12"
                              PreviewTextInput="Number_PreviewTextInput"/>
 
-                    <!-- Количество -->
                     <TextBlock Text="Количество (шт.)*:" 
                                FontSize="13" 
                                FontWeight="Bold" 
@@ -59,7 +56,6 @@
                              FontSize="12"
                              PreviewTextInput="Number_PreviewTextInput"/>
 
-                    <!-- Категория -->
                     <TextBlock Text="Категория:" 
                                FontSize="13" 
                                FontWeight="Bold" 
@@ -91,7 +87,6 @@
                         <ComboBoxItem Content="Разное"/>
                     </ComboBox>
 
-                    <!-- Описание -->
                     <TextBlock Text="Описание:" 
                                FontSize="13" 
                                FontWeight="Bold" 
@@ -104,13 +99,11 @@
                              AcceptsReturn="True"
                              VerticalScrollBarVisibility="Auto"/>
 
-                    <!-- Информация о полях -->
                     <TextBlock Text="* - обязательные поля" 
                                FontSize="10" 
                                Foreground="Gray"
                                Margin="0,0,0,15"/>
 
-                    <!-- Кнопки -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                         <Button Content="💾 Сохранить" 
                                 Click="Save_Click"
